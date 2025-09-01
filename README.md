@@ -9,7 +9,10 @@ EV - Exit Velocity, the speed the ball comes off the hitters bat.
 
 Chase% - How often you chase a ball outside the zone
 
+PS Score - Takes into account disapline, age, and overall hitting to get the Prospect Score, or hitting potential of the minor league hitter.
+
 
 Any of the columns right of Name_1 are part of MLB data, any left one is part of Minor League data.
 
-<img width="1507" height="855" alt="Dashboard_MLB" src="https://github.com/user-attachments/assets/64c936fb-8c73-42ca-a9c7-d630c5037f28" />
+The first graph looks at Speed in the minors and how it corrolates to Defensive and Baserunning value without the hitting. The second graph looks at the prospect proformance by the 30 MLB teams. The bottem left shows the WAR gained by each level of _. The final graph is colored by PS Score, with red being better.
+<img width="1509" height="859" alt="Summerize_dash" src="https://github.com/user-attachments/assets/a7dd8755-8ea4-4bd8-bee4-21a66c83a06e" />
