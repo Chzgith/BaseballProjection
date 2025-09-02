@@ -17,5 +17,5 @@ WAR - Takes into account Defense, Baserunnning, and Hitting at MLB level to get 
 
 Any of the columns right of Name_1 are part of MLB data, any left one is part of Minor League data.
 
-The first graph looks at Speed in the minors and how it corrolates to Defensive and Baserunning value without the hitting. The second graph looks at the prospect proformance by the 30 MLB teams. The bottem left shows the WAR gained by PS Score. The final graph is colored by PS Score, with red being better, and takes the best distilled stat from the minors, and the best distlled hitting stat from the Majors WRC+. The Pie Charts are for each 0.25 interval of the PS score, and looks at Home Runs and WAR for both.
+
 <img width="1509" height="859" alt="Summerize_dash" src="https://github.com/user-attachments/assets/a7dd8755-8ea4-4bd8-bee4-21a66c83a06e" />
