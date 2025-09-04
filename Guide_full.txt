@@ -1,0 +1,18 @@
+When looking at the extent to which advanced statistics transfer into success from the minor to major leagues in baseball, I saw that there are many ways to see how well we can transfer the skill over, and how well it can instantly transfer over.
+
+Since we only have recent (2023) minor league(AAA) data, we can only find data from a for prospects who recently graduated, who are more likely to struggle for a bit at the start of their careers.
+
+When looking at the Dashboard, the first graph looks at Speed in the minors and how it correlates to Defensive and Base running value without the hitting. The main thing we can see with this graph is projection that excludes batting. With the rough speed statistics from AAA showing up at the Major League level in the two parts of players' game outside of hitting. We can see there is a small amount of projection you can do with the early athleticism and that value, but a shockingly little overall connection, when this is a league that highly values fast and athletic prospects.
+
+The second graph looks at the prospect performance by the 30 MLB teams. Blue bars means good xwoba, and the bar size are for total war in MLB. We can see orgs like Milwaukee and Baltimore are the best when it comes to young talent. While Miami and Boston have a good quantity of young talent.
+
+The bottom left shows the WAR gained by PS Score. We can see there are a lot of plays with low and high PS scores with negative WAR values. These players could turn it around in the future, but there is very little correlation for PS Score when the stat is supposed to tell you how good the player is going to be overall.
+
+The final graph is colored by PS Score, with red being better, and takes the best distilled stat from the minors, and the best distilled hitting stat from the Majors WRC+. There is not much of a pattern to see, which backs up the sentiment that it is hard to translate hitting in the minors to the majors.
+
+
+The Pie Charts are for each 0.25 interval of the PS score, and look at Home Runs and WAR for both. The top 25% of both show that the counted stats have been obtained more by the top 25% of AAA players. With those top 25% players getting a majority of both Home Runs and WAR.
+
+We can see from the different parts of the analysis that there is not really enough data at this point to make a conclusive statement. However, there is a trend of the more advanced and complex stats being a bit better than the simpler ones for projection. This would be an interesting question to revisit in a couple of years with more advanced data.
+
+You can do some speculation on why in this small timeframe there is such a drastic difference. We know that fastball velocity was 92 Miles Per Hour around 15 years ago, but is now 95 MPH in MLB. This is closer to the human limit, and can explain why there is a sharp drop off in hitting overall, but the difference in pitching quality might not be that great, as minor league pitchers are also wanting more velocity.
