@@ -1,0 +1,113 @@
+---
+title: "nonstatBaseball"
+output: html_document
+date: "2026-02-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+base <- read.csv("/Users/charlesroe/downloads/milbmlbnon.csv")
+library(ggplot2)
+```
+
+## Simple Data
+
+For this document I have a dataset with more rows, with larger amounts of Plate Apperences on average for each player. It uses more simple data that does not rely on Statcast metrics like Exit Velocity of Prospect Score.
+
+```{r cars}
+head(base)
+nrow(base)
+```
+
+We can see here we have a similar number of columns, but we can see we have four times as many rows, and an increase in Plate Appearances that are even more important to reducing variance.
+
+### Graphs
+
+```{r}
+ggplot(base, aes(wOBA, wOBA_1)) +
+  geom_point(color="black", size = 0.2) +
+  labs(title = "wOBA in minors vs majors",
+       x = "wOBA Majors",
+       y = "wOBA Minors") +
+  theme_minimal()
+ggplot(base, aes(xwOBA, K._1)) +
+  geom_point(color="black", size = 0.2) +
+  labs(title = "strikeouts in minors",
+       x = "wOBA Majors",
+       y = "strikeouts Minors %") +
+  theme_minimal()
+```
+
+We can see in this graph that there is a much stronger corrolation with pure hitting stats then strikeouts. wOBA is a stat that quantifies all parts of hitting, and gives a highers score to hitters that hit better. We can see that if you hit better in the minors then you hit better in the majors, but it is a fairly loose correlation. With strikeout percentage, there is an extremely small correlation so, if you strikeout less, you have a small chance of preforming better in the majors.
+
+
+```{r}
+wOBA <- lm(wOBA_1 ~ wOBA, base)
+summary(wOBA)
+k <- lm(K._1 ~ wOBA, base)
+summary(k)
+```
+We can see that there is no siginigance for strikouts, but there is signfagance for the two hitting stats, with teh p-value being well below alpha level 0.05.
+
+```{r}
+ggplot(base, aes(Spd, WAR)) +
+  geom_point(color="black", size = 0.2) +
+  labs(title = "Speed translates to WAR",
+       x = "Speed in Minors",
+       y = "War Majors") +
+  theme_minimal()
+ggplot(base, aes(wRC._1, WAR)) +
+  geom_point(color="black", size = 0.2) +
+  labs(title = "Hitting translates to WAR",
+       x = "Hitting in Minors",
+       y = "War Majors") +
+  theme_minimal()
+spd <- lm(Spd ~ WAR, base)
+summary(spd)
+wrc <- lm(wRC._1 ~ WAR, base)
+summary(wrc)
+```
+
+We can see pure athleticism quantified by the Spd stat that measures you running speed in the minors, has no effect on your WAR in the Majors. This means that being fast is not a good way to project a good baseball player. Even hitting in the minors well, does not mean you are necessarily going to do well in the majors, as there is a ton of variance. We can also see using linear regression, that there is a signifigant relation between Hitting in the Minors and your WAR in the majors.
+
+```{r fig.width=9, fig.height=4}
+minn <- base[, 28:41]
+
+fit <- data.frame(
+  var = colnames(minn),
+  corr = NA
+)
+
+for (x in 1:ncol(minn)) {
+  fit$corr[x] <- cor(base[, 23], minn[, x])
+}
+
+fit
+
+ggplot(fit, aes(x = var, y = corr)) +
+  geom_col(fill = "purple") +
+  labs(title = "Each minor numerical statistic corrolation") +
+  theme_minimal()
+```
+
+We can see here that most have positive relationships, with the big exception being strikeout percentage, which makes sense, as a higher strikeout percentage means you are hitting the ball less. We can see the strongest correlation comes from Batting Average, and wOBA/OPS, which is interesting. wOBA and OPS supposed to be a precise stat that fully quantifies your hitting ability, while batting average is just a part of that.
+
+```{r fig.width=9, fig.height=4}
+fit2 <- data.frame(
+  var = colnames(minn),
+  corr = NA
+)
+
+for (x in 1:ncol(minn)) {
+  fit2$corr[x] <- cor(base[, 6], minn[, x])
+}
+
+fit2
+
+ggplot(fit2, aes(x = var, y = corr)) +
+  geom_col(fill = "darkred") +
+  labs(title = "Each minor numerical statistic corrolation to HR") +
+  theme_minimal()
+```
+
+Here we look at the most important stats that lead to home runs, as that is something that is very important in the modern day, we can see Speed is one of the few negative values, which makes sense given power hitters are usually not speedy. We can see the best stats are the ones focused on power like Isolated Power, and Slugging. We can also see that there is little correlation between strikeouts and Home Runs, which shows that you don't necessarily strikeout more if you are going for Home Runs, however we see Walk rate and On Base are highly correlated, which shows that having a good eye for balls is good for homeruns.
