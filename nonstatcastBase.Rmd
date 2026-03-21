@@ -12,7 +12,7 @@ library(ggplot2)
 
 ## Simple Data
 
-For this document I have a dataset with more rows, with larger amounts of Plate Apperences on average for each player. It uses more simple data that does not rely on Statcast metrics like Exit Velocity of Prospect Score.
+For this document I have a dataset with more rows, with larger amounts of Plate Appearances on average for each player. It uses more simple data that does not rely on Statcast metrics like Exit Velocity of Prospect Score.
 
 ```{r cars}
 head(base)
@@ -21,7 +21,7 @@ nrow(base)
 
 We can see here we have a similar number of columns, but we can see we have four times as many rows, and an increase in Plate Appearances that are even more important to reducing variance.
 
-### Graphs
+## Graphs
 
 ```{r}
 ggplot(base, aes(wOBA, wOBA_1)) +
@@ -47,7 +47,7 @@ summary(wOBA)
 k <- lm(K._1 ~ wOBA, base)
 summary(k)
 ```
-We can see that there is no siginigance for strikouts, but there is signfagance for the two hitting stats, with teh p-value being well below alpha level 0.05.
+We can see that there is no significance for strikeouts, with the p-value being well below alpha level 0.01, and there being absolutely no $R^2$. However, there is significance for the wOBA hitting stat, with a small $R^2$, showing while it is a weak relation, hitting in the minors is much more important for a prospects success.
 
 ```{r}
 ggplot(base, aes(Spd, WAR)) +
@@ -62,13 +62,21 @@ ggplot(base, aes(wRC._1, WAR)) +
        x = "Hitting in Minors",
        y = "War Majors") +
   theme_minimal()
-spd <- lm(Spd ~ WAR, base)
-summary(spd)
-wrc <- lm(wRC._1 ~ WAR, base)
-summary(wrc)
 ```
 
-We can see pure athleticism quantified by the Spd stat that measures you running speed in the minors, has no effect on your WAR in the Majors. This means that being fast is not a good way to project a good baseball player. Even hitting in the minors well, does not mean you are necessarily going to do well in the majors, as there is a ton of variance. We can also see using linear regression, that there is a signifigant relation between Hitting in the Minors and your WAR in the majors.
+We can see pure athleticism quantified by the Spd stat that measures you running speed in the minors, but we cannot see a visible effect on your WAR in the Majors. This means that being fast is not a good way to project a good baseball player. Even hitting in the minors well, does not mean you are necessarily going to do well in the majors, as there is a ton of variance.
+
+```{r}
+wrc <- lm(wRC._1 ~ WAR, base)
+summary(wrc)
+Spd <- lm(WAR ~ Spd + wRC._1, base)
+summary(Spd)
+```
+
+
+We can also see using linear regression, that there is a significant relation between Hitting in the Minors and your WAR in the majors. However, Spd is just not significant, however the $R^2$ for both are very small, which lines up with what we see in the graphs, with there being very little cause and effect.
+
+## Correlation
 
 ```{r fig.width=9, fig.height=4}
 minn <- base[, 28:41]
@@ -86,7 +94,7 @@ fit
 
 ggplot(fit, aes(x = var, y = corr)) +
   geom_col(fill = "purple") +
-  labs(title = "Each minor numerical statistic corrolation") +
+  labs(title = "Each minor numerical statistic corrolation to WAR") +
   theme_minimal()
 ```
 
